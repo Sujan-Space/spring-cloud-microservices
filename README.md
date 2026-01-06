@@ -208,7 +208,7 @@ curl -X POST http://localhost:8080/api/orders \
 
 **Sujan Kumar**  
 GitHub: [@Sujan-Space](https://github.com/Sujan-Space)  
-LinkedIn: [Connect with me](https://www.linkedin.com/in/sujan-kumar)  
+LinkedIn: [Connect with me]([https://www.linkedin.com/in/sujan-kumar](https://www.linkedin.com/in/sujankumar2003/))  
 
 
 
