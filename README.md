@@ -1,7 +1,7 @@
 # 🌩️ Spring Cloud Microservices Demo
 
 A simple **Spring Cloud microservices architecture** built using **Spring Boot 3.x**.  
-This project demonstrates **service discovery, API gateway routing, and inter-service communication** using modern Spring Cloud components.
+This project demonstrates **service discovery, API Gateway routing, and inter-service communication** using modern Spring Cloud components.
 
 ---
 
@@ -11,8 +11,8 @@ This project demonstrates **service discovery, API gateway routing, and inter-se
 - Centralized routing via **API Gateway**
 - Inter-service communication using **WebClient**
 - Client-side load balancing with **Spring Cloud LoadBalancer**
-- Modular microservice structure
-- Compatible with **Spring Boot 3.x & Java 17**
+- Modular microservice-based architecture
+- Compatible with **Spring Boot 3.x** and **Java 17**
 
 ---
 
@@ -20,10 +20,10 @@ This project demonstrates **service discovery, API gateway routing, and inter-se
 
 The system consists of the following microservices:
 
-- **Eureka Server** – Service registry and discovery
-- **API Gateway** – Single entry point for all client requests
-- **Order Service** – Handles order creation
-- **Payment Service** – Handles payment processing
+- **Eureka Server** – Service registry and discovery  
+- **API Gateway** – Single entry point for client requests  
+- **Order Service** – Handles order creation  
+- **Payment Service** – Handles payment processing  
 
 ---
 
@@ -33,18 +33,18 @@ The system consists of the following microservices:
 - **Spring Boot** 3.1+  
 - **Spring Cloud** 2022.x  
 - **Maven**  
-- **Spring Tool Suite (STS) / IntelliJ IDEA**
+- **Spring Tool Suite (STS) 
 
 ---
 
 ## 🚀 Services & Ports
 
-| Service          | Port |
-|------------------|------|
-| Eureka Server    | 8761 |
-| API Gateway      | 8080 |
-| Order Service    | 8181 |
-| Payment Service  | 8082 |
+| Service         | Port |
+|-----------------|------|
+| Eureka Server   | 8761 |
+| API Gateway     | 8080 |
+| Order Service   | 8181 |
+| Payment Service | 8082 |
 
 ---
 
@@ -52,75 +52,170 @@ The system consists of the following microservices:
 
 ```text
 spring-cloud-microservices/
-├── api-gateway
-├── eureka-server
-├── order-service
-├── payment-service
+├── api-gateway/
+├── eureka-server/
+├── order-service/
+├── payment-service/
 └── README.md
-▶️ How to Run the Application
-1️⃣ Clone the Repository
-bash
-Copy code
+```
+
+---
+
+## ▶️ How to Run the Application
+
+### 1️⃣ Clone the Repository
+
+```bash
 git clone https://github.com/Sujan-Space/spring-cloud-microservices.git
 cd spring-cloud-microservices
-2️⃣ Import into STS / Eclipse
-mathematica
-Copy code
+```
+
+### 2️⃣ Import into STS / Eclipse
+
+```
 File → Import → Existing Maven Projects
 Select the project root
-
 Click Finish
-
 Allow Maven to download dependencies
+```
 
-3️⃣ Start Services (IMPORTANT ORDER)
+### 3️⃣ Start Services (IMPORTANT ORDER)
+
 Start the services in the following order:
 
-Eureka Server
-
-API Gateway
-
-Payment Service
-
-Order Service
+1. **Eureka Server**
+2. **API Gateway**
+3. **Payment Service**
+4. **Order Service**
 
 Each service can be started using:
 
-mathematica
-Copy code
-Right-click → Run As → Spring Boot App
-🔍 Verify Eureka Registration
+```
+Right-click → Run As → Spring Boot App or 
+Run server as spring boot and rest as Java Application 
+```
+
+### 🔍 Verify Eureka Registration
+
 Open your browser and navigate to:
 
-arduino
-Copy code
+```
 http://localhost:8761
+```
+
 You should see all services registered in the Eureka Dashboard.
 
-🧪 API Testing
-Create Order (via API Gateway)
-Endpoint
+---
 
-http
-Copy code
+## 🧪 API Testing
+
+### Create Order (via API Gateway)
+
+**Endpoint:**
+
+```
 POST http://localhost:8080/api/orders
-Request Body
+```
 
-json
-Copy code
+**Request Body:**
+
+```json
 {
   "price": 100,
   "quantity": 2
 }
-Use Postman or curl to test the API.
+```
 
-⚠️ Notes
-Ensure Java 17 is configured correctly
+**Expected Response:**
 
-Ports must be free before starting services
+```json
+{
+  "orderId": "ORD123456",
+  "price": 100,
+  "quantity": 2,
+  "totalAmount": 200,
+  "paymentStatus": "SUCCESS"
+}
+```
 
-Eureka Server must always start first
+Test using **Postman** :
 
-🧑‍💻 Author
-Sujan Kumar
-🔗 GitHub: https://github.com/Sujan-Space
+```bash
+curl -X POST http://localhost:8080/api/orders \
+  -H "Content-Type: application/json" \
+  -d '{"price": 100, "quantity": 2}'
+```
+
+---
+
+## 📦 Service Details
+
+### 🔹 Eureka Server
+
+- Acts as a **service registry** where all microservices register themselves
+- Provides service discovery for inter-service communication
+- Dashboard available at `http://localhost:8761`
+
+### 🔹 API Gateway
+
+- Single entry point for all client requests
+- Routes requests to appropriate microservices
+- Provides load balancing and filters
+
+**Sample Route Configuration:**
+
+### 🔹 Order Service
+
+- Handles order creation and management
+- Communicates with Payment Service for payment processing
+- Uses **WebClient** for asynchronous HTTP calls
+
+### 🔹 Payment Service
+
+- Processes payment requests
+- Returns payment status to Order Service
+- Exposes REST endpoints for payment operations
+
+---
+
+
+---
+
+## 🐛 Troubleshooting
+
+### Services not registering with Eureka
+
+- Ensure Eureka Server is running first
+- Check if `eureka.client.service-url.defaultZone` is correctly configured
+- Verify network connectivity on port 8761
+
+### API Gateway not routing requests
+
+- Confirm all services are registered in Eureka Dashboard
+- Check Gateway route configurations in `application.yml`
+- Verify service names match exactly (case-sensitive)
+
+### WebClient connection errors
+
+- Ensure target service is running and registered
+- Check if `@LoadBalanced` annotation is present on WebClient bean
+- Verify service name is correct in WebClient URL
+
+---
+
+
+## 👤 Author
+
+**Sujan Kumar**  
+GitHub: [@Sujan-Space](https://github.com/Sujan-Space)  
+LinkedIn: [Connect with me](https://www.linkedin.com/in/sujan-kumar)  
+
+
+
+---
+
+## ⭐ Show your support
+
+Give a ⭐️ if this project helped you!
+
+**Happy Coding! 🚀**
