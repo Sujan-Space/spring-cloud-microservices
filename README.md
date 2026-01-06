@@ -178,9 +178,6 @@ curl -X POST http://localhost:8080/api/orders \
 
 ---
 
-
----
-
 ## 🐛 Troubleshooting
 
 ### Services not registering with Eureka
